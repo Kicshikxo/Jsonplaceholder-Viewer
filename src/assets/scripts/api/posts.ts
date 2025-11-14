@@ -1,0 +1,24 @@
+import axios from 'axios'
+import type { Posts } from '~/types/jsonplaceholder'
+
+export async function getPosts(
+  filter: { title?: string } = {},
+  params: { page: number; perPage: number } = {
+    page: 1,
+    perPage: 30,
+  },
+) {
+  try {
+    const response = await axios.get<Posts>('/api/posts', {
+      params: {
+        _page: params.page,
+        _limit: params.perPage,
+        title_like: filter.title,
+      },
+    })
+
+    return response.data
+  } catch (error: any) {
+    throw new Error(error.response.data.message ?? error.message)
+  }
+}
