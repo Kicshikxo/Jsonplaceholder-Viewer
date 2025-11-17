@@ -108,6 +108,7 @@
 import { onMounted, ref } from 'vue'
 
 import PostsTable from '~/components/pages/index/PostsTable.vue'
+import Button from '~/components/ui/button/Button.vue'
 import {
   Dialog,
   DialogContent,
@@ -139,7 +140,10 @@ const userDialog = ref<{
 })
 
 function handleOpenUserDialog(user: User | null) {
-  userDialog.value.user = user
-  userDialog.value.open = true
+  if (user) {
+    usersStore.openedUsers.add(user.id)
+    userDialog.value.user = user
+    userDialog.value.open = true
+  }
 }
 </script>

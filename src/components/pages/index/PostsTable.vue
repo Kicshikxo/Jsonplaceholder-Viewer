@@ -54,7 +54,12 @@ function sortableHeader(label: string, columnId: string) {
   )
 }
 
-function cellWithTooltip(content: string | undefined, maxWidth = '200px', onClick?: () => void) {
+function cellWithTooltip(
+  content: string | undefined,
+  maxWidth: string,
+  openedBefore = false,
+  onClick?: () => void,
+) {
   return h(TooltipProvider, { delayDuration: 700 }, () =>
     h(Tooltip, {}, () => [
       h(TooltipTrigger, {}, () =>
@@ -64,11 +69,10 @@ function cellWithTooltip(content: string | undefined, maxWidth = '200px', onClic
               {
                 size: 'sm',
                 variant: 'ghost',
-                class: `truncate text-left cursor-pointer`,
-                style: { maxWidth },
+                class: `cursor-pointer ${openedBefore ? 'text-neutral-400' : ''}`,
                 onClick,
               },
-              () => content,
+              () => h('div', { class: `truncate text-left`, style: { maxWidth } }, content),
             )
           : h('div', { class: `truncate text-left`, style: { maxWidth } }, content),
       ),
@@ -93,7 +97,9 @@ const columns: ColumnDef<Post>[] = [
     header: ({ column }) => sortableHeader('Автор', column.id),
     cell: (info) => {
       const user = usersStore.users.find((u) => u.id === info.getValue())
-      return cellWithTooltip(user?.email, '200px', () => {
+      const openedBefore = user?.id ? usersStore.openedUsers.has(user.id) : false
+
+      return cellWithTooltip(user?.email, '200px', openedBefore, () => {
         emits('open-user-dialog', user ?? null)
       })
     },
