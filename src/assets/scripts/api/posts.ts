@@ -1,8 +1,10 @@
+import type { SortDirection } from '@tanstack/vue-table'
 import axios from 'axios'
 import type { Posts } from '~/types/jsonplaceholder'
 
 export async function getPosts(
   filter: { title?: string } = {},
+  sort: { key?: string; order?: SortDirection } = {},
   params: { page: number; perPage: number } = {
     page: 1,
     perPage: 30,
@@ -13,6 +15,8 @@ export async function getPosts(
       params: {
         _page: params.page,
         _limit: params.perPage,
+        _sort: sort.key,
+        _order: sort.order,
         title_like: filter.title,
       },
     })

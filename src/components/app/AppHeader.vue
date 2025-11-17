@@ -5,7 +5,7 @@
         jsonplaceholder-viewer
       </span>
       <InputGroup>
-        <InputGroupInput v-model="postsStore.postsTitleFilter" placeholder="Поиск по постам..." />
+        <InputGroupInput v-model="postsStore.postsFilter.title" placeholder="Поиск по постам..." />
         <InputGroupAddon align="inline-end">
           <InputGroupButton variant="secondary" @click="postsStore.fetchPosts">
             <Spinner v-if="postsStore.fetchLoading" />

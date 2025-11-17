@@ -2,7 +2,7 @@
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
       <Button variant="outline" size="icon">
-        <Icon :icon="colorModeIcon" class="h-4 w-4" />
+        <component :is="colorModeIcon" class="size-4"></component>
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">
@@ -14,8 +14,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Icon } from '@iconify/vue'
 import { useColorMode } from '@vueuse/core'
+import { CircleQuestionMark, Monitor, Moon, Sun } from 'lucide-vue-next'
 import { computed } from 'vue'
 import { Button } from '~/components/ui/button'
 import {
@@ -30,13 +30,13 @@ const colorMode = useColorMode()
 const colorModeIcon = computed(() => {
   switch (colorMode.store.value) {
     case 'auto':
-      return 'radix-icons:desktop'
+      return Monitor
     case 'dark':
-      return 'radix-icons:moon'
+      return Moon
     case 'light':
-      return 'radix-icons:sun'
+      return Sun
     default:
-      return 'radix-icons:question-mark-circled'
+      return CircleQuestionMark
   }
 })
 </script>

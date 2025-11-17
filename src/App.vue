@@ -12,10 +12,13 @@
           <RouterView />
         </div>
       </div>
+
+      <Toaster />
     </main>
   </div>
 </template>
 
 <script lang="ts" setup>
 import AppHeader from '~/components/app/AppHeader.vue'
+import { Toaster } from '~/components/ui/sonner'
 </script>
