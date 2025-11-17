@@ -7,7 +7,7 @@
     <Dialog v-model:open="userDialog.open">
       <DialogContent class="max-w-md">
         <DialogHeader>
-          <DialogTitle>Карточка пользователя</DialogTitle>
+          <DialogTitle>Информация о пользователе</DialogTitle>
         </DialogHeader>
 
         <div class="flex flex-col">
