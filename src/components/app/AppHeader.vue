@@ -1,6 +1,6 @@
 <template>
-  <div class="container mx-auto flex justify-between items-center w-full h-full">
-    <div class="flex items-center gap-4">
+  <div class="container mx-auto flex justify-between items-center gap-2 w-full h-full">
+    <div class="flex items-center gap-2 sm:gap-4">
       <div class="flex justify-center items-center gap-2">
         <Braces />
         <span class="text-xl hidden sm:inline font-semibold whitespace-nowrap">
@@ -8,7 +8,10 @@
         </span>
       </div>
       <InputGroup>
-        <InputGroupInput v-model="postsStore.postsFilter.title" placeholder="Поиск по постам..." />
+        <InputGroupInput
+          v-model.trim="postsStore.postsFilter.title"
+          placeholder="Поиск по постам..."
+        />
         <InputGroupAddon align="inline-end">
           <InputGroupButton variant="secondary" @click="postsStore.fetchPosts">
             <Spinner v-if="postsStore.fetchLoading" />
