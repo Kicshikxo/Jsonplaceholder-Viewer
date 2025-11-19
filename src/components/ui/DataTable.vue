@@ -28,9 +28,19 @@
           </TableCell>
         </TableRow>
 
-        <div v-if="showLoadMore" class="h-4">
-          <IntersectionObserver @intersect="emits('load-more')" />
-        </div>
+        <template v-if="showLoadMore">
+          <TableRow v-for="row in 3" :key="row" class="h-12">
+            <TableCell v-for="cell in table.getAllColumns()" :key="cell.id">
+              <Skeleton class="h-5" />
+            </TableCell>
+          </TableRow>
+
+          <TableRow>
+            <td :colspan="table.getAllColumns().length">
+              <IntersectionObserver @intersect="emits('load-more')" />
+            </td>
+          </TableRow>
+        </template>
       </template>
       <template v-else>
         <TableRow>
@@ -49,6 +59,7 @@ import { FlexRender, getCoreRowModel, getSortedRowModel, useVueTable } from '@ta
 import { ref } from 'vue'
 
 import IntersectionObserver from '~/components/app/IntersectionObserver.vue'
+import Skeleton from '~/components/ui/skeleton/Skeleton.vue'
 import {
   Table,
   TableBody,
