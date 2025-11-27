@@ -17,7 +17,14 @@
     </TableHeader>
 
     <TableBody>
-      <template v-if="table.getRowModel().rows?.length">
+      <template v-if="skeleton">
+        <TableRow v-for="row in 20" :key="row" class="h-12">
+          <TableCell v-for="cell in table.getAllColumns()" :key="cell.id">
+            <Skeleton class="h-5" />
+          </TableCell>
+        </TableRow>
+      </template>
+      <template v-else-if="table.getRowModel().rows?.length">
         <TableRow
           v-for="row in table.getRowModel().rows"
           :key="row.id"
@@ -35,7 +42,7 @@
             </TableCell>
           </TableRow>
 
-          <TableRow>
+          <TableRow v-if="showLoadMore">
             <td :colspan="table.getAllColumns().length">
               <IntersectionObserver @intersect="emits('load-more')" />
             </td>
@@ -59,7 +66,7 @@ import { FlexRender, getCoreRowModel, getSortedRowModel, useVueTable } from '@ta
 import { ref } from 'vue'
 
 import IntersectionObserver from '~/components/app/IntersectionObserver.vue'
-import Skeleton from '~/components/ui/skeleton/Skeleton.vue'
+import { Skeleton } from '~/components/ui/skeleton'
 import {
   Table,
   TableBody,
@@ -73,9 +80,11 @@ const props = withDefaults(
   defineProps<{
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    skeleton?: boolean
     showLoadMore?: boolean
   }>(),
   {
+    skeleton: false,
     showLoadMore: false,
   },
 )

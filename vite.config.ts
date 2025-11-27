@@ -10,9 +10,8 @@ export default defineConfig(({ mode }) => {
     port: Number(env.PORT) || 3000,
     allowedHosts: true,
     proxy: {
-      '/api': {
-        target: env.API_URL || 'https://jsonplaceholder.typicode.com/',
-        rewrite: (path) => path.replace(/^\/api/, ''),
+      '/rest': {
+        target: env.API_URL || 'https://dveri-bambit.bitrix24.ru/',
         changeOrigin: true,
       },
     },

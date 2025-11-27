@@ -3,7 +3,7 @@
     class="flex flex-col w-screen min-w-screen max-w-screen h-dvh min-h-dvh max-h-dvh overflow-hidden"
   >
     <header class="w-full h-16 p-2 border-b border-neutral-200 dark:border-neutral-800">
-      <AppHeader />
+      <Header />
     </header>
 
     <main class="flex flex-1 relative overflow-y-auto overflow-x-hidden">
@@ -19,6 +19,6 @@
 </template>
 
 <script lang="ts" setup>
-import AppHeader from '~/components/app/AppHeader.vue'
+import Header from '~/components/app/Header.vue'
 import { Toaster } from '~/components/ui/sonner'
 </script>

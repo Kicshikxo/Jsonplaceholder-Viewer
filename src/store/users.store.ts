@@ -1,33 +1,20 @@
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { toast } from 'vue-sonner'
 import { getUsers } from '~/assets/scripts/api/users'
-import type { Users } from '~/types/jsonplaceholder'
-
-export const OPENED_USERS_KEY = 'openedUsers'
+import type { BitrixUser } from '~/types/bitrix'
 
 export default defineStore('users', () => {
-  const users = ref<Users>([])
-  const openedUsers = ref<Set<number>>(new Set())
+  const users = ref<BitrixUser[]>([])
 
   const fetchLoading = ref(false)
-
-  const storedOpenedUsers = localStorage.getItem(OPENED_USERS_KEY)
-  if (storedOpenedUsers) {
-    try {
-      openedUsers.value = new Set(JSON.parse(storedOpenedUsers))
-    } catch (error: any) {
-      localStorage.removeItem(OPENED_USERS_KEY)
-      toast.error(error.message)
-    }
-  }
-
   async function fetchUsers() {
     if (fetchLoading.value) return
 
     fetchLoading.value = true
     try {
-      users.value = await getUsers()
+      const { result } = await getUsers()
+      users.value = result
     } catch (error: any) {
       toast.error(error.message, {
         duration: Infinity,
@@ -43,13 +30,5 @@ export default defineStore('users', () => {
     }
   }
 
-  watch(
-    openedUsers,
-    () => {
-      localStorage.setItem(OPENED_USERS_KEY, JSON.stringify([...openedUsers.value]))
-    },
-    { deep: true },
-  )
-
-  return { users, openedUsers, fetchUsers }
+  return { users, fetchUsers }
 })
