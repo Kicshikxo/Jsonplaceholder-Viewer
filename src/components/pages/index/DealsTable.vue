@@ -5,7 +5,7 @@
       :columns="columns"
       :data="dealsStore.deals"
       :show-load-more="!dealsStore.pagination.fullyLoaded"
-      @load-more="dealsStore.fetch"
+      @load-more="dealsStore.fetchDeals"
     />
   </div>
 </template>
@@ -46,7 +46,7 @@ const sortableHeader = (columnId: string) => {
       onClick: () => {
         if (dealsStore.fetchLoading) return
         dealsStore.toggleSort(columnId)
-        dealsStore.fetch(true)
+        dealsStore.fetchDeals(true)
       },
     },
     () => [

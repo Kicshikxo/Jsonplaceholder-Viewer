@@ -28,7 +28,7 @@
           />
         </InputGroup>
 
-        <Button variant="secondary" @click="dealsStore.fetch">
+        <Button variant="secondary" @click="dealsStore.fetchDeals">
           <div class="flex items-center">
             <Spinner v-if="dealsStore.fetchLoading" class="mr-1" />
             <span>Поиск</span>
