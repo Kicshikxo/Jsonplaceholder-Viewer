@@ -31,7 +31,6 @@ export default defineStore('deals', () => {
   }
 
   async function fetchFields() {
-    console.log('fetch')
     try {
       const { result } = await getDealFields()
       fields.value = result
