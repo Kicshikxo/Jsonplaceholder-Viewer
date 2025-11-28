@@ -6,11 +6,19 @@ import type { BitrixStatus } from '~/types/bitrix'
 
 export default defineStore('statuses', () => {
   const statuses = ref<BitrixStatus[]>([])
-  const dealStageStatuses = computed<BitrixStatus[]>(() =>
-    statuses.value.filter((status) => status.ENTITY_ID === 'DEAL_STAGE'),
+  const dealStageStatuses = computed(() =>
+    Object.fromEntries(
+      statuses.value
+        .filter((status) => status.ENTITY_ID === 'DEAL_STAGE')
+        .map((status) => [status.STATUS_ID, status]),
+    ),
   )
-  const sourceStatuses = computed<BitrixStatus[]>(() =>
-    statuses.value.filter((status) => status.ENTITY_ID === 'SOURCE'),
+  const sourceStatuses = computed(() =>
+    Object.fromEntries(
+      statuses.value
+        .filter((status) => status.ENTITY_ID === 'SOURCE')
+        .map((status) => [status.STATUS_ID, status]),
+    ),
   )
 
   const fetchLoading = ref(false)

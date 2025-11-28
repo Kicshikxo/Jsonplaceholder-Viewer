@@ -92,7 +92,7 @@ const emits = defineEmits<{
   'load-more': []
 }>()
 
-const sorting = ref<SortingState>([])
+const sorting = ref<SortingState>([{ id: 'ID', desc: false }])
 
 const table = useVueTable({
   get data() {
@@ -107,6 +107,9 @@ const table = useVueTable({
     get sorting() {
       return sorting.value
     },
+  },
+  onSortingChange: (updater) => {
+    sorting.value = typeof updater === 'function' ? updater(sorting.value) : updater
   },
 })
 </script>
